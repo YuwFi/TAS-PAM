@@ -13,13 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import edu.uksw.fti.pam.pamactivityintent.HomeActivity
+import edu.uksw.fti.pam.pamactivityintent.MenuActivity
 import edu.uksw.fti.pam.pamactivityintent.R
 import edu.uksw.fti.pam.pamactivityintent.contracts.SignUpContract
 import edu.uksw.fti.pam.pamactivityintent.ui.screens.Poppins
@@ -159,7 +158,7 @@ fun LoginForm() {
                                 val isRegistred = doAuthregis(usernameInput,passwordInput,cUser,cPass)
                                 if(isAuthenticated||isRegistred)
                                     lContext.startActivity(
-                                        Intent(lContext, HomeActivity::class.java)
+                                        Intent(lContext, MenuActivity::class.java)
                                             .apply {
                                                 putExtra("nama", listNama(fNameInput,lNameInput))
                                             }

@@ -1,18 +1,18 @@
 package edu.uksw.fti.pam.pamactivityintent
 
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
-import edu.uksw.fti.pam.pamactivityintent.screens.LoginForm
+import edu.uksw.fti.pam.pamactivityintent.ui.screens.BottomNavigationMainScreenView
 import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
 
+class MenuActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PAMActivityIntentTheme {
@@ -21,7 +21,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    LoginForm()
+                    val username = getIntent().getStringArrayListExtra("nama")?:""
+                    BottomNavigationMainScreenView(username as ArrayList<String>)
                 }
             }
         }

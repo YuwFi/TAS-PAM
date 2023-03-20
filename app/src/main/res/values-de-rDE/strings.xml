@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    login-->
-    <string name="app_name">PAM Activity Intent</string>
+    <string name="app_name">MangaDex</string>
     <string name="text_signtitle">"Melden Sie sich bei Ihrem Konto an"</string>
     <string name="text_usernameoremail">"Benutzername oder E-Mail-Adresse"</string>
     <string name="text_password">Passwort</string>
@@ -20,20 +20,9 @@
     <string name="text_latestrelease">"Neueste Erscheinung"</string>
     <string name="text_seasonal">Saisonal</string>
     <string name="text_recentlyadd">"Recently Add"</string>
-    <string name="text_jjk_desc">"Yuta Okkotsu ist ein Highschool-Schüler, der an einem ernsthaften Problem leidet, das sein Freund in einen Fluch verwandelt"</string>
-    <string name="text_bleach_desc">"Ichigo Kurosaki konnte immer sehen, wie Ghost herausfand, dass er eigentlich ein Shinigami ist"</string>
-    <string name="text_bsd_desc">"Nakajima wurde aus seinem Waisenhaus geworfen und jetzt wird er wegen seiner Fähigkeiten zur Spezialpolizei"</string>
-    <string name="text_swodduel_desc">"Schafft es der dunkle Soldat, der in der Armee des Dämonenlords keine Magie anwenden kann, zu überleben?"</string>
-    <string name="text_magicrev_desc">"Shinichi Sagara, ein schwarzer Unternehmenskämpfer. Prinzessin Anisphia trotzt den Erwartungen der Aristokratie"</string>
-    <string name="text_civilservant_desc">"Wiedergeboren als Denburg Blade, der Sohn eines legendären Anführers der Schlachtrasse, fing er im Alter von 12 Jahren Dämonen und einen Drachen."</string>
-    <string name="text_misfitdemon_desc">"Der Dämonenlord der Tyrannei, Anos, der Menschen, Geister und sogar Götter zerstört hat, wird in dieser Welt wiedergeboren!"</string>
-    <string name="text_serialkiller_desc">"Ein Mörder, der den Drang, Menschen zu töten, nicht stoppen kann, lebt jetzt in einer fremden Welt"</string>
-    <string name="text_angelnd_desc">"Mahiru ist ein wunderschönes Mädchen, ihre Klassenkameraden nennen sie 'Engel', weil sie auch schlau ist"</string>
     <!--    tampilanbebas-->
     <string name="text_advancedsearch">"Erweiterte Suche"</string>
     <string name="text_sortby">"Sortieren nach"</string>
-    <string name="text_ongoing">"LAUFEND"</string>
-    <string name="text_completed">"VOLLENDET"</string>
     <string name="text_browse">"Durchsuche"</string>
     <string name="text_genre_action">"Aktion"</string>
     <string name="text_genre_curse">"Fluch"</string>
@@ -42,15 +31,6 @@
     <string name="text_genre_isekai">"Isekai"</string>
     <string name="text_genre_magic">"Magie"</string>
     <string name="text_genre_emperror">"Kaiser"</string>
-    <string name="text_sort_latestupdate">"Neuestes Update"</string>
-    <string name="text_sort_highestranking">"Höchste Platzierung"</string>
-    <string name="text_sort_mostfollows">"Die meisten Follower"</string>
-    <string name="text_sort_completed">"Vollendet"</string>
-    <string name="text_nottalent_desc">"Ich bin eine kränkliche Person, die Blut erbricht, wenn ich gestresst bin. Deon Hart. Im Dämonenreich wurde er der Kommandant des 0. Korps, das dem Dämonenkönig am meisten vertraute!"</string>
-    <string name="text_countfam_desc">"Kim Roksu erwacht als Cale Henituse – einer der Bösewichte in 'Birth of Hero'. Kann Kim Roksu den Verlauf dieser Geschichte ändern, damit er ein langes und verschwenderisches Leben genießen kann?"</string>
-    <string name="text_novelextra_desc">"Kim Hajin findet sich in einer vertrauten Welt, aber einem unbekannten Körper wieder. Er war zu einer Füllfigur ohne Bedeutung für die Geschichte geworden. Der einzige Anhaltspunkt, um zu entkommen, besteht darin, in der Nähe der Hauptgeschichte zu bleiben."</string>
-    <string name="text_magicacademy_desc">"Die berüchtigte Zauberschule 'Euroguard', Selbstversorgung ist Standard, Monster-Auftritt ist eine Option, und Professoren sind alle gleich! Der salzige Schulalltag, den ich noch nie gesehen habe, beginnt."</string>
-    <string name="text_frozenplayer_desc">"Die fünf besten Spieler der Welt, darunter Spectre Seo Jun-ho, besiegten schließlich die Frostkönigin, aber sie fielen in einen tiefen Schlaf. Nach 25 Jahren erwacht Specter aus seinem Dornröschenschlaf."</string>
 
     <string name="lastname">Nachname</string>
     <string name="follow">Folgen</string>
@@ -64,8 +44,19 @@
 
     <string name="home">Heim</string>
     <string name="commuity">Gemeinschaft</string>
-    <string name="bookmark">Lesezeichen</string>
-    <string name="titles">Titel</string>
+    <string name="bookmark">Rang</string>
+    <string name="titles">Lesen</string>
     <string name="profile">Profil</string>
+
+    <!--    PermissionScreen   -->
+
+    <string name="camera_accepted">Camera permission accepted</string>
+    <string name="camera_permission_needed">Camera permission is needed to access the camera</string>
+    <string name="camera_denied">Camera permission was permanently denied. You can enable it in the app settings.</string>
+    <string name="record_accepted">Record audio permission accepted</string>
+    <string name="record_permission_needed">Record audio permission is needed to access the camera</string>
+    <string name="rexord_denied">Record audio permission was permanently denied. You can enable it in the app settings.</string>
+
+
 
 </resources>

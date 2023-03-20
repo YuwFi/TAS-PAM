@@ -16,19 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import edu.uksw.fti.pam.pamactivityintent.R
 import edu.uksw.fti.pam.pamactivityintent.ui.BottomNavItems
-import java.io.Serializable
+import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
 
 var firstName:String = ""
 var lastName:String = ""
@@ -45,21 +44,21 @@ fun NavigationGraph(
             HomeScreen2()
         }
 
-        composable(BottomNavItems.Bookmark.screen_route) {
-
+        composable(BottomNavItems.Rank.screen_route) {
+            RankScreen()
         }
         composable(BottomNavItems.Titles.screen_route) {
-
+            ReadScreen()
         }
         composable(BottomNavItems.Users.screen_route) {
-
+            CommunityScreen()
         }
         composable(BottomNavItems.Profile.screen_route){
             ProfileScreen(firstName, lastName)
 
         }
         composable("search") {
-            SearchScreen()
+            SearchScreen2()
         }
     }
 }
@@ -72,7 +71,7 @@ fun BottomNavigation(
     lastName = lname
     val items = listOf(
         BottomNavItems.Home,
-        BottomNavItems.Bookmark,
+        BottomNavItems.Rank,
         BottomNavItems.Titles,
         BottomNavItems.Users,
         BottomNavItems.Profile
@@ -170,5 +169,13 @@ fun BottomNavigationMainScreenView(listNama: ArrayList<String>) {
         }
     ) {
         NavigationGraph(navController = navController)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NavvBarPreview() {
+    PAMActivityIntentTheme {
+        BottomNavigationMainScreenView(arrayListOf("","","",""))
     }
 }

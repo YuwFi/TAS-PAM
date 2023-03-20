@@ -1,8 +1,7 @@
 package edu.uksw.fti.pam.pamactivityintent.ui.screens
 
+import android.content.Intent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -10,22 +9,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import edu.uksw.fti.pam.pamactivityintent.PermissionActivity
 import edu.uksw.fti.pam.pamactivityintent.R
-import edu.uksw.fti.pam.pamactivityintent.screens.listNama
 import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
 
 @Composable
 fun ProfileScreen(fname:String?,lname:String?) {
     var firstName  by remember { mutableStateOf("")}
     var lastName by remember { mutableStateOf("") }
+    val lContext = LocalContext.current
+
 
     firstName = fname.toString()
     lastName = lname.toString()
@@ -56,10 +56,11 @@ fun ProfileScreen(fname:String?,lname:String?) {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Button(
-                onClick = {
-                },
-                modifier = Modifier,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffF0F1F2))
+                onClick = { /*TODO*/
+                    lContext.startActivity(
+                        Intent(lContext, PermissionActivity::class.java)
+                    )
+                }
             ) {
                 Icon(painter = painterResource(id = R.drawable.ic_more_horiz_24),
                     contentDescription = null,

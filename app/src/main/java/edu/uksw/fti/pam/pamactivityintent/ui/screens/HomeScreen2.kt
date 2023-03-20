@@ -3,6 +3,7 @@ package edu.uksw.fti.pam.pamactivityintent.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -23,19 +25,39 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import edu.uksw.fti.pam.pamactivityintent.Model.Object.TerbaruModel
+import edu.uksw.fti.pam.pamactivityintent.Model.View.BaruViewModel
+import edu.uksw.fti.pam.pamactivityintent.Model.View.MusimanViewModel
+import edu.uksw.fti.pam.pamactivityintent.Model.View.PopularViewModel
+import edu.uksw.fti.pam.pamactivityintent.Model.View.TerbaruViewModel
 import edu.uksw.fti.pam.pamactivityintent.R
 import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
 
-data class Popular(
-    var painter: Painter,
-    var title: String,
-    var desc: String,
-    var author: String
-)
+
+private val popularVm = PopularViewModel()
+private val terbaruVm = TerbaruViewModel()
+private val musimanVm = MusimanViewModel()
+private val baruVm = BaruViewModel()
+
 
 @Composable
 fun HomeScreen2(){
+
     val scrollState = rememberScrollState()
+    LaunchedEffect(Unit, block = {
+        popularVm.getPopularList()
+    })
+    LaunchedEffect(Unit, block = {
+        terbaruVm.getTerbaruList()
+    })
+    LaunchedEffect(Unit, block = {
+        musimanVm.getMusimanList()
+    })
+    LaunchedEffect(Unit, block = {
+        baruVm.getBaruList()
+    })
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,27 +65,8 @@ fun HomeScreen2(){
     ){
         Column (modifier = Modifier
             .verticalScroll(state = scrollState)
-            .background(Color.White)){
-            val popList = listOf(
-                Popular(
-                    painterResource(R.drawable.jjknol),
-                    "Jujutsu Kaisen Zero",
-                    stringResource(R.string.text_jjk_desc),
-                    "Akutami Gege",
-                ),
-                Popular(
-                    painterResource(R.drawable.bleach),
-                    "Bleach",
-                    stringResource(R.string.text_bleach_desc),
-                    "Kubo Tite"
-                ),
-                Popular(
-                    painterResource(R.drawable.bsdog),
-                    "Bungou Stray Dog",
-                    stringResource(R.string.text_bsd_desc),
-                    "Asagiri Kafka, Harukawa35"
-                ),
-            )
+
+            .padding(bottom = 60.dp)){
             Text(
                 text = stringResource(R.string.text_popular),
                 fontWeight = FontWeight.SemiBold,
@@ -72,101 +75,86 @@ fun HomeScreen2(){
                 modifier = Modifier
                     .padding(top = 10.dp, bottom = 5.dp)
             )
-            LazyRow(modifier = Modifier.fillMaxWidth()) {
-                items(popList.size) { index ->
-                    ListCardPop(popList[index])
+
+            if(popularVm.errorMessage.isEmpty()){
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(popularVm.popularList.size) {
+                            index ->
+
+                        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                            Card(
+                                modifier = Modifier
+                                    .height(150.dp)
+                                    .fillMaxWidth()
+                                    .padding(5.dp),
+                                shape = RoundedCornerShape(8.dp),
+                                backgroundColor = Color.White
+                            ) {
+                                Row() {
+                                    AsyncImage(
+                                        model = popularVm.popularList[index].imgUrl,
+                                        contentDescription = null,
+                                        contentScale = ContentScale.Fit,
+                                    )
+                                    Box(modifier = Modifier
+                                        .width(200.dp)
+                                        .height(150.dp)
+                                        .padding(1.dp)){
+                                        Column(modifier = Modifier.padding(5.dp)) {
+                                            Text(
+                                                text = popularVm.popularList[index].title,
+//                        fontFamily = Poppins,
+                                                fontWeight = FontWeight.SemiBold,
+                                                color = Color.Black,
+                                                fontSize = 13.sp,
+                                                modifier = Modifier
+                                                    .requiredHeight(35.dp)
+                                            )
+                                            Text(
+                                                text = popularVm.popularList[index].des,
+//                        fontFamily = Poppins,
+                                                fontSize = 10.sp,
+                                                color = Color.Black,
+                                                modifier = Modifier
+                                                    .requiredHeight(75.dp)
+
+                                            )
+                                            Text(
+                                                text = popularVm.popularList[index].author,
+//                        fontFamily = Poppins,
+                                                fontSize = 13.sp,
+                                                color = Color.Black,
+                                                fontStyle = FontStyle.Italic,
+                                            )
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            else{
+                Column() {
+                    Text(text = popularVm.errorMessage)
+                    Text(text = "error woy")
+                }
+
+
+            }
+
+
             LatestList()
         }
     }
 }
 
-@Composable
-fun ListCardPop(data:Popular) {
-    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-        Card(
-            modifier = Modifier
-                .height(150.dp)
-                .fillMaxWidth()
-                .padding(5.dp),
-            shape = RoundedCornerShape(8.dp),
-            backgroundColor = Color.White
-        ) {
-            Row() {
-                Image(
-                    painter = data.painter,
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                )
-                Box(modifier = Modifier
-                    .width(200.dp)
-                    .height(150.dp)
-                    .padding(1.dp)){
-                    Column(modifier = Modifier.padding(5.dp)) {
-                        Text(
-                            text = data.title,
-//                        fontFamily = Poppins,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black,
-                            fontSize = 13.sp,
-                            modifier = Modifier
-                                .requiredHeight(35.dp)
-                        )
-                        Text(
-                            text = data.desc,
-//                        fontFamily = Poppins,
-                            fontSize = 10.sp,
-                            color = Color.Black,
-                            modifier = Modifier
-                                .requiredHeight(75.dp)
-
-                        )
-                        Text(
-                            text = data.author,
-//                        fontFamily = Poppins,
-                            fontSize = 13.sp,
-                            color = Color.Black,
-                            fontStyle = FontStyle.Italic,
-                        )
-                    }
-
-                }
-            }
-        }
-    }
-}
-
-data class Latest(
-    var painter: Painter,
-    var title: String,
-    var desc: String,
-    var author: String
-)
 
 @Composable
 fun LatestList(){
     Column {
-        val lateList = listOf(
-            Latest(
-                painterResource(R.drawable.swordduel),
-                "The Slow Second Life of Sword Soldier",
-                stringResource(R.string.text_swodduel_desc),
-                "Saekisan, Suzu Yuuki"
-            ),
-            Latest(
-                painterResource(R.drawable.magicrev),
-                "The Magical Revolution",
-                stringResource(R.string.text_magicrev_desc),
-                "by developing 'magicology', which based on memories"
-            ),
-            Latest(
-                painterResource(R.drawable.civil),
-                "My Civil Servant Life As a Reincarnated Battle Race",
-                stringResource(R.string.text_civilservant_desc),
-                "Gi So-Ryeong, il.k"
-            ),
-        )
+
         Text(
             text = stringResource(R.string.text_latestrelease),
             fontWeight = FontWeight.SemiBold,
@@ -175,99 +163,81 @@ fun LatestList(){
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 5.dp)
         )
-        LazyRow(modifier = Modifier.fillMaxWidth()) {
-            items(lateList.size) { index ->
-                ListCardLate(lateList[index])
+        if(terbaruVm.errorMessage.isEmpty()){
+            LazyRow(modifier = Modifier.fillMaxWidth()) {
+                items(terbaruVm.terbaruList.size) {
+                        index ->
+
+                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                        Card(
+                            modifier = Modifier
+                                .height(150.dp)
+                                .fillMaxWidth()
+                                .padding(5.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            backgroundColor = Color.White
+                        ) {
+                            Row() {
+                                AsyncImage(
+                                    model = terbaruVm.terbaruList[index].imgUrl,
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Fit,
+                                )
+                                Box(modifier = Modifier
+                                    .width(200.dp)
+                                    .height(150.dp)
+                                    .padding(1.dp)){
+                                    Column(modifier = Modifier.padding(5.dp)) {
+                                        Text(
+                                            text = terbaruVm.terbaruList[index].title,
+//                        fontFamily = Poppins,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = Color.Black,
+                                            fontSize = 13.sp,
+                                            modifier = Modifier
+                                                .requiredHeight(35.dp)
+                                        )
+                                        Text(
+                                            text = terbaruVm.terbaruList[index].des,
+//                        fontFamily = Poppins,
+                                            fontSize = 10.sp,
+                                            color = Color.Black,
+                                            modifier = Modifier
+                                                .requiredHeight(75.dp)
+
+                                        )
+                                        Text(
+                                            text = terbaruVm.terbaruList[index].author,
+//                        fontFamily = Poppins,
+                                            fontSize = 13.sp,
+                                            color = Color.Black,
+                                            fontStyle = FontStyle.Italic,
+                                        )
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+        else{
+            Column() {
+                Text(text = terbaruVm.errorMessage)
+                Text(text = "error woy")
+            }
+
+
+        }
+
         SeasonList()
     }
 }
 
 @Composable
-fun ListCardLate(data:Latest) {
-    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-        Card(
-            modifier = Modifier
-                .height(150.dp)
-                .fillMaxWidth()
-                .padding(5.dp),
-            shape = RoundedCornerShape(8.dp),
-            backgroundColor = Color.White
-        ) {
-            Row() {
-                Image(
-                    painter = data.painter,
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                )
-                Box(modifier = Modifier
-                    .width(200.dp)
-                    .height(150.dp)
-                    .padding(1.dp)) {
-                    Column(modifier = Modifier.padding(5.dp)) {
-                        Text(
-                            text = data.title,
-//                        fontFamily = Poppins,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black,
-                            fontSize = 13.sp,
-                            modifier = Modifier
-                                .requiredHeight(35.dp)
-                        )
-                        Text(
-                            text = data.desc,
-//                        fontFamily = Poppins,
-                            fontSize = 10.sp,
-                            color = Color.Black,
-                            modifier = Modifier
-                                .requiredHeight(75.dp)
-
-                        )
-                        Text(
-                            text = data.author,
-//                        fontFamily = Poppins,
-                            fontSize = 13.sp,
-                            color = Color.Black,
-                            fontStyle = FontStyle.Italic,
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-data class Season(
-    var painter: Painter,
-    var title: String,
-    var desc: String,
-    var author: String
-)
-
-@Composable
 fun SeasonList(){
     Column (){
-        val seasList = listOf(
-            Season(
-                painterResource(R.drawable.demonmisfit),
-                "The Misfit of Demon King",
-                stringResource(R.string.text_misfitdemon_desc),
-                "Shuu, Kaya Haruka"
-            ),
-            Season(
-                painterResource(R.drawable.serialkiller),
-                "Serial Killer Reincarnated in Another World",
-                stringResource(R.string.text_serialkiller_desc),
-                "Hitotsubu Ichigo, Hiro"
-            ),
-            Season(
-                painterResource(R.drawable.angelnd),
-                "The Angel Next Door",
-                stringResource(R.string.text_angelnd_desc),
-                "Saekisan, Suzu Yuuki"
-            ),
-        )
         Text(
             text = stringResource(R.string.text_seasonal),
             fontWeight = FontWeight.SemiBold,
@@ -276,82 +246,80 @@ fun SeasonList(){
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 5.dp)
         )
-        LazyRow(modifier = Modifier.fillMaxWidth()) {
-            items(seasList.size) { index ->
-                ListCardSeas(seasList[index])
+        if(musimanVm.errorMessage.isEmpty()){
+            LazyRow(modifier = Modifier.fillMaxWidth()) {
+                items(musimanVm.musimanList.size) {
+                        index ->
+
+                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                        Card(
+                            modifier = Modifier
+                                .height(150.dp)
+                                .fillMaxWidth()
+                                .padding(5.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            backgroundColor = Color.White
+                        ) {
+                            Row() {
+                                AsyncImage(
+                                    model = musimanVm.musimanList[index].imgUrl,
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Fit,
+                                )
+                                Box(modifier = Modifier
+                                    .width(200.dp)
+                                    .height(150.dp)
+                                    .padding(1.dp)){
+                                    Column(modifier = Modifier.padding(5.dp)) {
+                                        Text(
+                                            text = musimanVm.musimanList[index].title,
+//                        fontFamily = Poppins,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = Color.Black,
+                                            fontSize = 13.sp,
+                                            modifier = Modifier
+                                                .requiredHeight(35.dp)
+                                        )
+                                        Text(
+                                            text = musimanVm.musimanList[index].des,
+//                        fontFamily = Poppins,
+                                            fontSize = 10.sp,
+                                            color = Color.Black,
+                                            modifier = Modifier
+                                                .requiredHeight(75.dp)
+
+                                        )
+                                        Text(
+                                            text = musimanVm.musimanList[index].author,
+//                        fontFamily = Poppins,
+                                            fontSize = 13.sp,
+                                            color = Color.Black,
+                                            fontStyle = FontStyle.Italic,
+                                        )
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
             }
+        }
+        else{
+            Column() {
+                Text(text = popularVm.errorMessage)
+                Text(text = "error woy")
+            }
+
+
         }
     }
     RecentList()
 }
 
 @Composable
-fun ListCardSeas(data:Season) {
-    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-        Card(
-            modifier = Modifier
-                .height(150.dp)
-                .fillMaxWidth()
-                .padding(5.dp),
-            shape = RoundedCornerShape(8.dp),
-            backgroundColor = Color.White
-        ) {
-            Row {
-                Image(
-                    painter = data.painter,
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                )
-                Box(modifier = Modifier
-                    .width(200.dp)
-                    .height(150.dp)
-                    .padding(1.dp)) {
-                    Column(modifier = Modifier.padding(5.dp)) {
-                        Text(
-                            text = data.title,
-                            fontFamily = Poppins,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black,
-                            fontSize = 13.sp,
-                            modifier = Modifier
-                                .requiredHeight(35.dp)
-                        )
-                        Text(
-                            text = data.desc,
-                            fontFamily = Poppins,
-                            fontSize = 10.sp,
-                            color = Color.Black,
-                            modifier = Modifier
-                                .requiredHeight(75.dp)
-
-                        )
-                        Text(
-                            text = data.author,
-                            fontFamily = Poppins,
-                            fontSize = 13.sp,
-                            color = Color.Black,
-                            fontStyle = FontStyle.Italic,
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-data class Recent(
-    var painter: Painter
-)
-
-@Composable
 fun RecentList(){
     Column (){
-        val receList = listOf(
-            Recent(painterResource(R.drawable.im_ra_1)),
-            Recent(painterResource(R.drawable.im_ra_2)),
-            Recent(painterResource(R.drawable.im_ra_3)),
-            Recent(painterResource(R.drawable.im_ra_4)),
-        )
         Text(
             text = stringResource(R.string.text_recentlyadd),
             fontWeight = FontWeight.SemiBold,
@@ -360,33 +328,35 @@ fun RecentList(){
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 5.dp)
         )
-        LazyRow(modifier = Modifier.fillMaxWidth()) {
-            items(receList.size) { index ->
-                ListCardRece(receList[index])
+        if (baruVm.errorMessage.isEmpty()){
+            LazyRow(modifier = Modifier.fillMaxWidth()) {
+                items(baruVm.baruList.size) { index ->
+                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                        Card(
+                            modifier = Modifier
+                                .height(150.dp)
+                                .fillMaxWidth()
+                                .padding(5.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            backgroundColor = Color.White
+                        ) {
+                            Row() {
+                                AsyncImage(
+                                    model = baruVm.baruList[index].imgUrl,
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Fit,
+                                )
+                            }
+                        }
+                    }
+                }
             }
-        }
-    }
-}
+        }else{
 
-@Composable
-fun ListCardRece(data:Recent) {
-    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-        Card(
-            modifier = Modifier
-                .height(150.dp)
-                .fillMaxWidth()
-                .padding(5.dp),
-            shape = RoundedCornerShape(8.dp),
-            backgroundColor = Color.White
-        ) {
-            Row() {
-                Image(
-                    painter = data.painter,
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                )
-            }
+            Text(text = baruVm.errorMessage)
+
         }
+
     }
 }
 

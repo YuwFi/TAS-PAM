@@ -1,6 +1,6 @@
 <resources>
     <!--    login-->
-    <string name="app_name">PAM Activity Intent</string>
+    <string name="app_name">MangaDex</string>
     <string name="text_signtitle">"Masuk ke akun Anda"</string>
     <string name="text_usernameoremail">"Usernama atau email"</string>
     <string name="text_password">Kata sandi</string>
@@ -19,20 +19,9 @@
     <string name="text_latestrelease">"Rilis Terbaru"</string>
     <string name="text_seasonal">"Musiman"</string>
     <string name="text_recentlyadd">"Baru ditambahkan"</string>
-    <string name="text_jjk_desc">"Yuta Okkotsu adalah seorang siswa sekolah menengah yang menderita masalah serius, temannya telah berubah menjadi kutukan"</string>
-    <string name="text_bleach_desc">"Ichigo Kurosaki yang selalu bisa melihat hantu mengetahui bahwa dia sebenarnya adalah seorang shinigami"</string>
-    <string name="text_bsd_desc">"Nakajima dikeluarkan dari panti asuhannya dan kini menjadi polisi khusus karena kemampuannya"</string>
-    <string name="text_swodduel_desc">"Prajurit gelap yang tidak bisa menggunakan sihir saat berada di pasukan Raja Iblis, apakah dia berhasil bertahan?"</string>
-    <string name="text_magicrev_desc">"Shinichi Sagara, seorang prajurit korporat kulit hitam."</string>
-    <string name="text_civilservant_desc">"Bereinkarnasi sebagai Denburg Blade, putra seorang kepala ras pertempuran legendaris, menangkap setan dan naga pada usia 12 tahun."</string>
-    <string name="text_misfitdemon_desc">"Raja iblis tirani, Anos menghancurkan manusia, roh, dan bahkan dewa bereinkarnasi di dunia ini!"</string>
-    <string name="text_serialkiller_desc">"Seorang pembunuh yang tidak bisa menghentikan keinginan untuk membunuh orang kini hidup di dunia asing"</string>
-    <string name="text_angelnd_desc">"Mahiru adalah seorang gadis cantik, teman-teman sekelasnya memanggilnya 'malaikat', karena dia juga pintar"</string>
     <!--    tampilanbebas-->
     <string name="text_advancedsearch">"Pencarian Lanjutan"</string>
     <string name="text_sortby">"Sortir dengan"</string>
-    <string name="text_ongoing">"BERLANGSUNG"</string>
-    <string name="text_completed">"LENGKAP"</string>
     <string name="text_browse">"Jelajahi"</string>
     <string name="text_genre_action">"Aksi"</string>
     <string name="text_genre_curse">"Kutukan"</string>
@@ -41,15 +30,6 @@
     <string name="text_genre_isekai">"Isekai"</string>
     <string name="text_genre_magic">"Sihir"</string>
     <string name="text_genre_emperror">"Kaisar"</string>
-    <string name="text_sort_latestupdate">"Pembaruan terbaru"</string>
-    <string name="text_sort_highestranking">"Peringkat tinggi"</string>
-    <string name="text_sort_mostfollows">"Pengikut terbanyak"</string>
-    <string name="text_sort_completed">"Lengkap"</string>
-    <string name="text_nottalent_desc">"Saya adalah orang yang sakit-sakitan yang muntah darah setiap kali saya stres. Deon Hart. Di alam iblis, dia menjadi komandan Korps ke-0, yang paling dipercaya oleh raja iblis!"</string>
-    <string name="text_countfam_desc">"Kim Roksu bangun sebagai Cale Henituse - salah satu penjahat di 'Birth of Hero'. Bisakah Kim Roksu mengubah jalan cerita ini agar bisa menikmati hidup yang panjang dan mewah?"</string>
-    <string name="text_novelextra_desc">"Kim Hajin menemukan dirinya berada di dunia yang akrab tetapi tubuh yang asing. Dia telah menjadi karakter pengisi yang tidak penting bagi cerita. Satu-satunya petunjuk untuk melarikan diri adalah tetap dekat dengan jalan cerita utama."</string>
-    <string name="text_magicacademy_desc">"Sekolah sihir terkenal 'Euroguard', swasembada adalah default, penampilan monster adalah pilihan, dan profesor semuanya sama! Kehidupan sekolah asin yang belum pernah saya lihat sebelumnya dimulai."</string>
-    <string name="text_frozenplayer_desc">"Lima pemain teratas di dunia, termasuk Spectre Seo Jun-ho, akhirnya mengalahkan Frost Queen, tetapi mereka tertidur lelap. Setelah 25 tahun berlalu momok terbangun dari tidurnya."</string>
     <!--    Profile-->
     <string name="lastname">Nama belakang</string>
     <string name="follow">Mengikuti</string>
@@ -62,11 +42,20 @@
     <!--    BottomNavigation   -->
     <string name="home">Beranda</string>
     <string name="commuity">Komunitas</string>
-    <string name="bookmark">Penanda</string>
-    <string name="titles">Judul</string>
+    <string name="bookmark">Peringkat</string>
+    <string name="titles">Baca</string>
     <string name="profile">Profil</string>
 
-    <!--    BottomNavigation   -->
+    <!--    PermissionScreen   -->
+
+    <string name="camera_accepted">Izin Kamera diterima</string>
+    <string name="camera_permission_needed">Izin kamera diperlukan untuk mengakses kamera</string>
+    <string name="camera_denied">Izin kamera ditolak secara permanen. Anda dapat mengaktifkannya di pengaturan aplikasi.</string>
+    <string name="record_accepted">Rekam izin audio diterima</string>
+    <string name="record_permission_needed">Izin merekam audio diperlukan untuk mengakses kamera</string>
+    <string name="rexord_denied">Izin merekam audio ditolak secara permanen. Anda dapat mengaktifkannya di pengaturan aplikasi.</string>
+
+
 
 
 </resources>
