@@ -38,14 +38,7 @@ fun ReadScreen(){
             .background(Color.White)
             .padding(bottom = 60.dp)
     ) {
-        Text(
-            text = stringResource(R.string.text_browse),
-            fontFamily = Poppins,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(start = 10.dp),
-            color = Color.Black
-        )
+
         if(readVm.errorMessage.isEmpty()){
             LazyColumn(
                 Modifier.fillMaxWidth(),

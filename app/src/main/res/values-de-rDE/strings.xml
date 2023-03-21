@@ -50,13 +50,13 @@
 
     <!--    PermissionScreen   -->
 
-    <string name="camera_accepted">Camera permission accepted</string>
-    <string name="camera_permission_needed">Camera permission is needed to access the camera</string>
-    <string name="camera_denied">Camera permission was permanently denied. You can enable it in the app settings.</string>
-    <string name="record_accepted">Record audio permission accepted</string>
-    <string name="record_permission_needed">Record audio permission is needed to access the camera</string>
-    <string name="rexord_denied">Record audio permission was permanently denied. You can enable it in the app settings.</string>
 
+    <string name="camera_accepted">Kameraerlaubnis akzeptiert</string>
+    <string name="camera_permission_needed">Für den Zugriff auf die Kamera ist eine Kameraberechtigung erforderlich</string>
+    <string name="camera_denied">Die Kameraerlaubnis wurde dauerhaft verweigert. Sie können es in den App-Einstellungen aktivieren.</string>
+    <string name="record_accepted">Erlaubnis zum Aufnehmen von Audio akzeptiert</string>
+    <string name="record_permission_needed">Für den Zugriff auf die Kamera ist die Berechtigung zum Aufnehmen von Audio erforderlich</string>
+    <string name="rexord_denied">Die Berechtigung zum Aufnehmen von Audio wurde dauerhaft verweigert.</string>
 
 
 </resources>
