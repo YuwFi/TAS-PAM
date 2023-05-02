@@ -28,6 +28,44 @@ import androidx.navigation.compose.rememberNavController
 import edu.uksw.fti.pam.pamactivityintent.R
 import edu.uksw.fti.pam.pamactivityintent.ui.BottomNavItems
 import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.*
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.filled.Nightlight
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.filled.LightMode
+
 
 var firstName:String = ""
 var lastName:String = ""
@@ -48,7 +86,7 @@ fun NavigationGraph(
             RankScreen()
         }
         composable(BottomNavItems.Titles.screen_route) {
-            ReadScreen()
+            ReadScreen(firstName)
         }
         composable(BottomNavItems.Users.screen_route) {
             CommunityScreen()
@@ -117,9 +155,84 @@ fun BottomNavigation(
     }
 }
 
+
+@Composable
+fun ThemeSwitcher(
+    darkTheme: Boolean = false,
+    size: Dp = 150.dp,
+    iconSize: Dp = size / 3,
+    padding: Dp = 10.dp,
+    borderWidth: Dp = 1.dp,
+    parentShape: Shape = CircleShape,
+    toggleShape: Shape = CircleShape,
+    animationSpec: AnimationSpec<Dp> = tween(durationMillis = 300),
+    onClick: () -> Unit
+) {
+    val offset by animateDpAsState(
+        targetValue = if (darkTheme) 0.dp else size,
+        animationSpec = animationSpec
+    )
+
+    Box(modifier = Modifier
+        .width(size * 2)
+        .height(size)
+        .clip(shape = parentShape)
+        .clickable { onClick() }
+        .background(MaterialTheme.colorScheme.secondaryContainer)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(size)
+                .offset(x = offset)
+                .padding(all = padding)
+                .clip(shape = toggleShape)
+                .background(MaterialTheme.colorScheme.primary)
+        ) {}
+        Row(
+            modifier = Modifier
+                .border(
+                    border = BorderStroke(
+                        width = borderWidth,
+                        color = MaterialTheme.colorScheme.primary
+                    ),
+                    shape = parentShape
+                )
+        ) {
+            Box(
+                modifier = Modifier.size(size),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    modifier = Modifier.size(iconSize),
+                    imageVector = Icons.Default.Nightlight,
+                    contentDescription = "Theme Icon",
+                    tint = if (darkTheme) MaterialTheme.colorScheme.secondaryContainer
+                    else MaterialTheme.colorScheme.primary
+                )
+            }
+            Box(
+                modifier = Modifier.size(size),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    modifier = Modifier.size(iconSize),
+                    imageVector = Icons.Default.LightMode,
+                    contentDescription = "Theme Icon",
+                    tint = if (darkTheme) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.secondaryContainer
+                )
+            }
+        }
+    }
+}
+
+
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun BottomNavigationMainScreenView(listNama: ArrayList<String>) {
+fun BottomNavigationMainScreenView(
+    listNama: ArrayList<String>,
+    darkTheme: Boolean, onThemeUpdated: () -> Unit
+) {
     val navController = rememberNavController()
     val mCheckedState = remember{ mutableStateOf(false) }
     var lname:String = listNama[1]
@@ -152,8 +265,13 @@ fun BottomNavigationMainScreenView(listNama: ArrayList<String>) {
                     }) {
                         Icon(Icons.Filled.Search, contentDescription = "Localized description")
                     }
-                    Switch(checked = mCheckedState.value, onCheckedChange = {mCheckedState.value = it})
-
+                    //Switch(checked = mCheckedState.value, onCheckedChange = {mCheckedState.value = it})
+                    ThemeSwitcher(
+                        darkTheme = darkTheme,
+                        size = 30.dp,
+                        padding = 5.dp,
+                        onClick = onThemeUpdated
+                    )
 
                 },
 
@@ -175,7 +293,12 @@ fun BottomNavigationMainScreenView(listNama: ArrayList<String>) {
 @Preview(showBackground = true)
 @Composable
 fun NavvBarPreview() {
-    PAMActivityIntentTheme {
-        BottomNavigationMainScreenView(arrayListOf("","","",""))
+    var darkTheme by remember { mutableStateOf(false) }
+    PAMActivityIntentTheme(darkTheme = darkTheme) {
+        BottomNavigationMainScreenView(
+            arrayListOf("","","",""),
+            darkTheme = darkTheme,
+            onThemeUpdated = { darkTheme = !darkTheme }
+        )
     }
 }

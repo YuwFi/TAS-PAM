@@ -26,7 +26,7 @@ import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
 
 
 @Composable
-fun LoginForm() {
+fun LoginForm(onSignInAction: (String, String) -> Unit) {
     val lContext = LocalContext.current
 
     var usernameInput by remember { mutableStateOf("") }
@@ -35,18 +35,20 @@ fun LoginForm() {
     var lNameInput by remember { mutableStateOf("") }
     var cUser by remember { mutableStateOf("harusnya belum regis") }
     var cPass by remember { mutableStateOf("ini sama diatas") }
-    var listProfle: ArrayList<String>?
+//    var listProfle: ArrayList<String>?
     val paddingModifier = Modifier.padding(10.dp)
 
     val getUsernameFormSignUpActivity = rememberLauncherForActivityResult(
         contract = SignUpContract(),
-        onResult = {listProfle = it!!
-            usernameInput = listProfle!![2]
-            passwordInput = listProfle!![3]
-            lNameInput = listProfle!![1]
-            fNameInput = listProfle!![0]
-            cUser = listProfle!![2]
-            cPass = listProfle!![3]}
+//        onResult = {listProfle = it!!
+//            usernameInput = listProfle!![2]
+//            passwordInput = listProfle!![3]
+//            lNameInput = listProfle!![1]
+//            fNameInput = listProfle!![0]
+//            cUser = listProfle!![2]
+//            cPass = listProfle!![3]}
+        onResult = {username ->
+            usernameInput = username!!}
     )
     Box(modifier =  Modifier
         .fillMaxSize()){
@@ -154,15 +156,16 @@ fun LoginForm() {
                     Row() {
                         Button(
                             onClick = { /*TODO*/
-                                val isAuthenticated = doAuth(usernameInput,passwordInput)
-                                val isRegistred = doAuthregis(usernameInput,passwordInput,cUser,cPass)
-                                if(isAuthenticated||isRegistred)
-                                    lContext.startActivity(
-                                        Intent(lContext, MenuActivity::class.java)
-                                            .apply {
-                                                putExtra("nama", listNama(fNameInput,lNameInput))
-                                            }
-                                    )
+//                                val isAuthenticated = doAuth(usernameInput,passwordInput)
+//                                val isRegistred = doAuthregis(usernameInput,passwordInput,cUser,cPass)
+//                                if(isAuthenticated||isRegistred)
+//                                    lContext.startActivity(
+//                                        Intent(lContext, MenuActivity::class.java)
+//                                            .apply {
+//                                                putExtra("nama", listNama(fNameInput,lNameInput))
+//                                            }
+//                                    )
+                                onSignInAction(usernameInput, passwordInput)
 
 
                             },
@@ -237,7 +240,7 @@ internal fun doAuthregis(username: String,password:String, cU:String,cP:String):
 @Composable
 fun LoginFormPreview(){
     PAMActivityIntentTheme {
-        LoginForm()
+//        LoginForm({},{})
     }
 }
 

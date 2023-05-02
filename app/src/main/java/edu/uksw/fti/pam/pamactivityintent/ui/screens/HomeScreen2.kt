@@ -1,32 +1,27 @@
 package edu.uksw.fti.pam.pamactivityintent.ui.screens
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import android.content.Intent
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import edu.uksw.fti.pam.pamactivityintent.Model.Object.TerbaruModel
+import edu.uksw.fti.pam.pamactivityintent.HalamanChapter
 import edu.uksw.fti.pam.pamactivityintent.Model.View.BaruViewModel
 import edu.uksw.fti.pam.pamactivityintent.Model.View.MusimanViewModel
 import edu.uksw.fti.pam.pamactivityintent.Model.View.PopularViewModel
@@ -35,15 +30,15 @@ import edu.uksw.fti.pam.pamactivityintent.R
 import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
 
 
+
 private val popularVm = PopularViewModel()
 private val terbaruVm = TerbaruViewModel()
 private val musimanVm = MusimanViewModel()
 private val baruVm = BaruViewModel()
 
-
 @Composable
 fun HomeScreen2(){
-
+    val lContext = LocalContext.current
     val scrollState = rememberScrollState()
     LaunchedEffect(Unit, block = {
         popularVm.getPopularList()
@@ -61,16 +56,18 @@ fun HomeScreen2(){
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 10.dp)
+//            .padding(start = 10.dp)
+            .background(MaterialTheme.colorScheme.surface)
     ){
         Column (modifier = Modifier
             .verticalScroll(state = scrollState)
-
+//            .background(MaterialTheme.colorScheme.surface)
             .padding(bottom = 60.dp)){
             Text(
                 text = stringResource(R.string.text_popular),
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = Poppins,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 20.sp,
                 modifier = Modifier
                     .padding(top = 10.dp, bottom = 5.dp)
@@ -86,7 +83,14 @@ fun HomeScreen2(){
                                 modifier = Modifier
                                     .height(150.dp)
                                     .fillMaxWidth()
-                                    .padding(5.dp),
+                                    .padding(5.dp)
+                                    .clickable {
+                                        lContext.startActivity(
+                                        Intent(lContext, HalamanChapter::class.java)
+                                            .apply {
+                                                putExtra("manga", popularVm.popularList[index].title)
+                                            }
+                                    ) },
                                 shape = RoundedCornerShape(8.dp),
                                 backgroundColor = Color.White
                             ) {
@@ -140,11 +144,7 @@ fun HomeScreen2(){
                     Text(text = popularVm.errorMessage)
                     Text(text = "error woy")
                 }
-
-
             }
-
-
             LatestList()
         }
     }
@@ -153,12 +153,14 @@ fun HomeScreen2(){
 
 @Composable
 fun LatestList(){
+    val lContext = LocalContext.current
     Column {
 
         Text(
             text = stringResource(R.string.text_latestrelease),
             fontWeight = FontWeight.SemiBold,
             fontFamily = Poppins,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 20.sp,
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 5.dp)
@@ -173,7 +175,14 @@ fun LatestList(){
                             modifier = Modifier
                                 .height(150.dp)
                                 .fillMaxWidth()
-                                .padding(5.dp),
+                                .padding(5.dp)
+                                .clickable {
+                                    lContext.startActivity(
+                                        Intent(lContext, HalamanChapter::class.java)
+                                            .apply {
+                                                putExtra("manga", terbaruVm.terbaruList[index].title)
+                                            }
+                                    ) },
                             shape = RoundedCornerShape(8.dp),
                             backgroundColor = Color.White
                         ) {
@@ -227,21 +236,20 @@ fun LatestList(){
                 Text(text = terbaruVm.errorMessage)
                 Text(text = "error woy")
             }
-
-
         }
-
         SeasonList()
     }
 }
 
 @Composable
 fun SeasonList(){
+    val lContext = LocalContext.current
     Column (){
         Text(
             text = stringResource(R.string.text_seasonal),
             fontWeight = FontWeight.SemiBold,
             fontFamily = Poppins,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 20.sp,
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 5.dp)
@@ -256,7 +264,14 @@ fun SeasonList(){
                             modifier = Modifier
                                 .height(150.dp)
                                 .fillMaxWidth()
-                                .padding(5.dp),
+                                .padding(5.dp)
+                                .clickable {
+                                    lContext.startActivity(
+                                        Intent(lContext, HalamanChapter::class.java)
+                                            .apply {
+                                                putExtra("manga", musimanVm.musimanList[index].title)
+                                            }
+                                    ) },
                             shape = RoundedCornerShape(8.dp),
                             backgroundColor = Color.White
                         ) {
@@ -310,8 +325,6 @@ fun SeasonList(){
                 Text(text = popularVm.errorMessage)
                 Text(text = "error woy")
             }
-
-
         }
     }
     RecentList()
@@ -321,9 +334,10 @@ fun SeasonList(){
 fun RecentList(){
     Column (){
         Text(
-            text = stringResource(R.string.text_recentlyadd),
+            text = stringResource(R.string.text_comingsoon),
             fontWeight = FontWeight.SemiBold,
             fontFamily = Poppins,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 20.sp,
             modifier = Modifier
                 .padding(top = 10.dp, bottom = 5.dp)
@@ -354,9 +368,7 @@ fun RecentList(){
         }else{
 
             Text(text = baruVm.errorMessage)
-
         }
-
     }
 }
 

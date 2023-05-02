@@ -22,7 +22,7 @@ import edu.uksw.fti.pam.pamactivityintent.ui.theme.PAMActivityIntentTheme
 
 @Composable
 fun SignUp  (
-    btnOnClickAction: (ArrayList<String>?) -> Unit
+    btnOnClickAction: (String,String,String,String) -> Unit
 ){
 
     var usernameInput by remember { mutableStateOf("") }
@@ -145,7 +145,7 @@ fun SignUp  (
             ){
                 Button(onClick = {
                     if(!fNameInput.equals("") && !lNameInput.equals("") && passInput.equals(cPassInput) && !usernameInput.equals("")){
-                        btnOnClickAction(listProfile(fNameInput,lNameInput,usernameInput,passInput))
+                        btnOnClickAction(fNameInput,lNameInput,usernameInput,passInput)
                     }
                 },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffFF6740)),
@@ -179,6 +179,6 @@ fun listProfile(f:String,l:String,u:String,p:String): ArrayList<String> {
 
 fun SignUpPreview(){
     PAMActivityIntentTheme {
-        SignUp({})
+
     }
 }

@@ -19,7 +19,7 @@
     <string name="text_popular">Beliebte neue Titel</string>
     <string name="text_latestrelease">"Neueste Erscheinung"</string>
     <string name="text_seasonal">Saisonal</string>
-    <string name="text_recentlyadd">"Recently Add"</string>
+    <string name="text_comingsoon">"Demnächst"</string>
     <!--    tampilanbebas-->
     <string name="text_advancedsearch">"Erweiterte Suche"</string>
     <string name="text_sortby">"Sortieren nach"</string>

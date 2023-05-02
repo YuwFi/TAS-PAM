@@ -18,7 +18,7 @@
     <string name="text_popular">"Judul Baru Populer"</string>
     <string name="text_latestrelease">"Rilis Terbaru"</string>
     <string name="text_seasonal">"Musiman"</string>
-    <string name="text_recentlyadd">"Baru ditambahkan"</string>
+    <string name="text_comingsoon">"Segera Hadir"</string>
     <!--    tampilanbebas-->
     <string name="text_advancedsearch">"Pencarian Lanjutan"</string>
     <string name="text_sortby">"Sortir dengan"</string>

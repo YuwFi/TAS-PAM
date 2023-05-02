@@ -7,11 +7,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,13 +29,12 @@ fun CommunityScreen(){
     LaunchedEffect(Unit, block = {
         communityVm.getCommunityList()
     })
-
 //    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
 //            .verticalScroll(state = scrollState)
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(bottom = 60.dp)
     ) {
         Text(
@@ -44,7 +43,7 @@ fun CommunityScreen(){
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(start = 10.dp),
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onSurface
         )
         if(communityVm.errorMessage.isEmpty()){
             LazyColumn(
